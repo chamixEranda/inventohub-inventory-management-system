@@ -4,9 +4,7 @@ import com.example.adminservice.entity.User;
 import com.example.adminservice.service.LoginRequest;
 import com.example.adminservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -25,5 +23,10 @@ public class UserController {
     @PostMapping(path = "/api/v1/users/login")
     public String authentication(@RequestBody LoginRequest loginRequest){
         return userService.authentication(loginRequest.getEmail(),loginRequest.getPassword());
+    }
+
+    @PutMapping(path = "/api/v1/users/{userId}")
+    public String updateProfile(@PathVariable Integer userId,@RequestBody User user){
+        return userService.updateProfile(userId, user);
     }
 }

@@ -62,4 +62,31 @@ public class UserService {
             return "Sorry!, Credentials are wrong!";
         }
     }
+
+    public String updateProfile(Integer userId, User user){
+        User existingUser = userRepository.findById(userId).orElse(null);
+        if (existingUser == null){
+            return "User not found!";
+        }
+        if (!isValidEmail(user.getEmail())) {
+            return "Invalid email address!";
+        }
+
+        if (!isValidPhoneNumber(user.getPhone_number())) {
+            return "Invalid phone number! It should have 10 digits.";
+        }
+
+        if (!isValidPassword(user.getPassword())) {
+            return "Password should have minimum 6 characters!";
+        }
+        existingUser.setF_name(user.getF_name());
+        existingUser.setL_name(user.getL_name());
+        existingUser.setCompany_name(user.getCompany_name());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setPhone_number(user.getPhone_number());
+
+        userRepository.save(existingUser);
+        return "Profile Updated Successfully!";
+    }
 }
