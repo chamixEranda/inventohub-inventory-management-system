@@ -5,6 +5,8 @@ import com.example.productcatalog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class CategoryController {
 
@@ -24,5 +26,10 @@ public class CategoryController {
     @DeleteMapping(path = "/api/v1/categories/{categoryId}")
     public String destroyCategory(@PathVariable Integer categoryId){
         return categoryService.destroyCategory(categoryId);
+    }
+
+    @GetMapping(path = "/api/v1/categories")
+    public List<Category> getAllCategories(){
+        return categoryService.getAllCategories();
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CategoryService {
@@ -41,5 +42,9 @@ public class CategoryService {
         category.setIs_active(false);
         categoryRepository.save(category);
         return "Category deleted successfully!";
+    }
+
+    public List<Category> getAllCategories(){
+        return categoryRepository.findAll();
     }
 }
