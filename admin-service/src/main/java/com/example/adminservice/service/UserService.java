@@ -49,21 +49,25 @@ public class UserService {
         }
     }
 
-    public String updateProfile(Integer userId, User user){
+    public ResponseEntity<String> updateProfile(Integer userId, User user){
         User existingUser = userRepository.findById(userId).orElse(null);
         if (existingUser == null){
-            return "User not found!";
+            String message = "User not found!";
+            return new ResponseEntity<>(message,HttpStatus.NOT_FOUND);
         }
         if (!isValidEmail(user.getEmail())) {
-            return "Invalid email address!";
+            String message = "Invalid email address!";
+            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
         }
 
         if (!isValidPhoneNumber(user.getPhone_number())) {
-            return "Invalid phone number! It should have 10 digits.";
+            String message = "Invalid phone number! It should have 10 digits.";
+            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
         }
 
         if (!isValidPassword(user.getPassword())) {
-            return "Password should have minimum 6 characters!";
+            String message = "Password should have minimum 6 characters!";
+            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
         }
         existingUser.setF_name(user.getF_name());
         existingUser.setL_name(user.getL_name());
@@ -73,6 +77,7 @@ public class UserService {
         existingUser.setPhone_number(user.getPhone_number());
 
         userRepository.save(existingUser);
-        return "Profile Updated Successfully!";
+        String message = "Profile Updated Successfully!";
+        return new ResponseEntity<>(message,HttpStatus.OK);
     }
 }

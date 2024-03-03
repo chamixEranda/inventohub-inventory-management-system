@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/api/v1/users/{userId}")
-    public String updateProfile(@PathVariable Integer userId,@RequestBody User user){
+    public ResponseEntity<String> updateProfile(@PathVariable Integer userId, @RequestBody User user){
         return userService.updateProfile(userId, user);
     }
 }
