@@ -6,41 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public String registration(User user){
-        if (!isValidEmail(user.getEmail())){
-            return "Invalid email address!";
-        }
-
-        if (!isUniqueEmail(user.getEmail())) {
-            return "Email already exists!";
-        }
-
-        if (!isValidPhoneNumber(user.getPhone_number())){
-            return "Invalid phone number! It should have 10 digits.";
-        }
-
-        if (!isValidPassword(user.getPassword())) {
-            return "Password should have minimum 6 characters!";
-        }
-
-        userRepository.save(user);
-        return "User registered successfully!";
+    public List<User> getUserDetails(){
+        return userRepository.findAll();
     }
 
     private boolean isValidEmail(String email){
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return StringUtils.hasText(email) && email.matches(emailRegex);
-    }
-
-    private boolean isUniqueEmail(String email) {
-        // Check if email already exists in the database
-        return userRepository.findByEmail(email) == null;
     }
 
     private boolean isValidPhoneNumber(int phoneNumber) {
@@ -54,12 +35,21 @@ public class UserService {
         return StringUtils.hasText(password) && password.length() >= 6;
     }
 
-    public String authentication(String email, String password){
+    public ResponseData authentication(String email, String password){
+        ResponseData resposne = new ResponseData();
         User user = userRepository.findByEmailAndPassword(email,password);
         if (user != null){
-            return "You are logged in!";
+            resposne.setMessage("You are logged in!");
+            resposne.setStatus_code(200);
+            System.out.println(resposne.getMessage());
+            System.out.println(resposne.getData());
+            System.out.println(resposne.getStatus_code());
+            return resposne;
         }else {
-            return "Sorry!, Credentials are wrong!";
+            resposne.setMessage("Sorry!, Unauthorized Access!");
+            resposne.setStatus_code(401);
+            System.out.println(resposne);
+            return resposne;
         }
     }
 
