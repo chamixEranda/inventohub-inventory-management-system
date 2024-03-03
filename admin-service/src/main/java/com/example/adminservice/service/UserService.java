@@ -3,6 +3,8 @@ package com.example.adminservice.service;
 import com.example.adminservice.entity.User;
 import com.example.adminservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -35,21 +37,15 @@ public class UserService {
         return StringUtils.hasText(password) && password.length() >= 6;
     }
 
-    public ResponseData authentication(String email, String password){
+    public ResponseEntity<String> authentication(String email, String password){
         ResponseData resposne = new ResponseData();
         User user = userRepository.findByEmailAndPassword(email,password);
         if (user != null){
-            resposne.setMessage("You are logged in!");
-            resposne.setStatus_code(200);
-            System.out.println(resposne.getMessage());
-            System.out.println(resposne.getData());
-            System.out.println(resposne.getStatus_code());
-            return resposne;
+            String message = "You are logged in!";
+            return new ResponseEntity<>(message, HttpStatus.OK);
         }else {
-            resposne.setMessage("Sorry!, Unauthorized Access!");
-            resposne.setStatus_code(401);
-            System.out.println(resposne);
-            return resposne;
+            String message = "Sorry!, Unauthorized Access!";
+            return new ResponseEntity<>(message,HttpStatus.UNAUTHORIZED);
         }
     }
 

@@ -5,6 +5,7 @@ import com.example.adminservice.service.LoginRequest;
 import com.example.adminservice.service.ResponseData;
 import com.example.adminservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/api/v1/users/login")
-    public ResponseData authentication(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<String> authentication(@RequestBody LoginRequest loginRequest){
         return userService.authentication(loginRequest.getEmail(),loginRequest.getPassword());
     }
 
