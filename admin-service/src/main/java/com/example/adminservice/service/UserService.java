@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.Console;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -37,16 +39,19 @@ public class UserService {
         return StringUtils.hasText(password) && password.length() >= 6;
     }
 
-    public ResponseEntity<String> authentication(String email, String password){
-        ResponseData resposne = new ResponseData();
+    public ResponseData<User> authentication(String email, String password){
+        ResponseData<User> resposne = new ResponseData<User>();
+
         User user = userRepository.findByEmailAndPassword(email,password);
         if (user != null){
-            String message = "You are logged in!";
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            resposne.setData(user);
+            resposne.setStatus(true);
+            resposne.setMessage( "You are logged in!");
         }else {
-            String message = "Sorry!, Unauthorized Access!";
-            return new ResponseEntity<>(message,HttpStatus.UNAUTHORIZED);
+            resposne.setStatus(false);
+            resposne.setMessage("Sorry!, Unauthorized Access!");
         }
+        return resposne;
     }
 
     public ResponseEntity<String> updateProfile(Integer userId, User user){

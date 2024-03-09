@@ -2,27 +2,27 @@ package com.example.adminservice.service;
 
 import java.util.List;
 
-public class ResponseData {
+public class ResponseData<T> {
 
-    private int status_code;
+    private boolean status;
     private String message;
-    private List data;
+    private T data;
 
     public ResponseData() {
     }
 
-    public ResponseData(int status_code, String message, List data) {
-        this.status_code = status_code;
+    public ResponseData(boolean status, String message, T data) {
+        this.status = status;
         this.message = message;
         this.data = data;
     }
 
-    public int getStatus_code() {
-        return status_code;
+    public boolean getStatus() {
+        return status;
     }
 
-    public void setStatus_code(int status_code) {
-        this.status_code = status_code;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -33,11 +33,11 @@ public class ResponseData {
         this.message = message;
     }
 
-    public List getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(List data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

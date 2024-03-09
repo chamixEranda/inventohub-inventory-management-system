@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -24,7 +26,8 @@ public class UserController {
     }
 
     @PostMapping(path = "/api/v1/users/login")
-    public ResponseEntity<String> authentication(@RequestBody LoginRequest loginRequest){
+    public ResponseData<User> authentication(@RequestBody LoginRequest loginRequest){
+//        System.out.println("This is "+loginRequest.getEmail()+" "+loginRequest.getPassword());
         return userService.authentication(loginRequest.getEmail(),loginRequest.getPassword());
     }
 
