@@ -2,6 +2,7 @@ package com.example.productcatalog.controller;
 
 import com.example.productcatalog.entity.Product;
 import com.example.productcatalog.service.ProductService;
+import com.example.productcatalog.service.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping(path = "/api/v1/products")
-    public ResponseEntity<String> createProduct(@RequestBody Product product, @RequestParam("imageFile") MultipartFile imageFile){
+    public ResponseData<Product> createProduct(@RequestBody Product product, @RequestParam("imageFile") MultipartFile imageFile){
         return productService.createProduct(product, imageFile);
     }
 
     @PutMapping(path = "api/v1/products/{product_id}")
-    public ResponseEntity<String> updateProduct(@PathVariable Integer product_id, @RequestBody Product product){
+    public ResponseData<Product> updateProduct(@PathVariable Integer product_id, @RequestBody Product product){
         return productService.updateProduct(product_id, product);
     }
 
@@ -42,7 +43,7 @@ public class ProductController {
     }
 
     @DeleteMapping(path = "/api/v1/products/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable int id){
+    public ResponseData<Product> deleteProduct(@PathVariable int id){
         return productService.deleteProduct(id);
     }
 }

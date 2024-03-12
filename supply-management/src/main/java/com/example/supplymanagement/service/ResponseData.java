@@ -1,15 +1,15 @@
-package com.example.productcatalog.service;
+package com.example.supplymanagement.service;
 
-public class ResponseData<Product> {
+public class ResponseData<Supplier> {
 
     private boolean status;
     private String message;
-    private Product data;
+    private Supplier data;
 
     public ResponseData() {
     }
 
-    public ResponseData(boolean status, String message, Product data) {
+    public ResponseData(boolean status, String message, Supplier data) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -31,11 +31,11 @@ public class ResponseData<Product> {
         this.message = message;
     }
 
-    public Product getData() {
+    public Supplier getData() {
         return data;
     }
 
-    public void setData(Product data) {
+    public void setData(Supplier data) {
         this.data = data;
     }
 }
