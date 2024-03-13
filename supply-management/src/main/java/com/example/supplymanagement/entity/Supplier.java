@@ -28,13 +28,10 @@ public class Supplier {
     @Column(name = "address", columnDefinition = "LONGTEXT")
     private String address;
 
-    @Column(name = "is_active", columnDefinition = "boolean default true")
-    private boolean is_active = true;
-
     public Supplier() {
     }
 
-    public Supplier(int id, String first_name, String last_name, String company_name, String email, int phone_number, String address, boolean is_active) {
+    public Supplier(int id, String first_name, String last_name, String company_name, String email, int phone_number, String address) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -42,7 +39,6 @@ public class Supplier {
         this.email = email;
         this.phone_number = phone_number;
         this.address = address;
-        this.is_active = is_active;
     }
 
     public int getId() {
@@ -99,13 +95,5 @@ public class Supplier {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public boolean isIs_active() {
-        return is_active;
-    }
-
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
     }
 }
