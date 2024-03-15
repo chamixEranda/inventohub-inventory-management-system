@@ -2,15 +2,14 @@ package com.example.adminservice.service;
 
 import com.example.adminservice.entity.User;
 import com.example.adminservice.repository.UserRepository;
+import org.hibernate.internal.util.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.io.Console;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,7 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getUserDetails(){
+    public List<User> getAllUserDetails(){
         return userRepository.findAll();
     }
 
@@ -54,7 +53,26 @@ public class UserService {
         return resposne;
     }
 
+
+    public ResponseData<User> getUserDetails(int id){
+        ResponseData<User> resposne = new ResponseData<User>();
+
+         Optional<User> user = userRepository.findById(id);
+
+        if (user.isPresent()){
+            resposne.setData(user.get());
+            resposne.setStatus(true);
+            resposne.setMessage( "User found");
+        }else {
+            resposne.setStatus(false);
+            resposne.setMessage("Not user found!");
+        }
+        return  resposne;
+    }
+
     public ResponseEntity<String> updateProfile(Integer userId, User user){
+
+
         User existingUser = userRepository.findById(userId).orElse(null);
         if (existingUser == null){
             String message = "User not found!";
@@ -85,4 +103,7 @@ public class UserService {
         String message = "Profile Updated Successfully!";
         return new ResponseEntity<>(message,HttpStatus.OK);
     }
+
+
+
 }
