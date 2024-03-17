@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -26,11 +25,13 @@ public class ProductService {
 
     private static final String UPLOAD_DIR = "uploads/";
 
-    public ResponseEntity<String> createProduct(Product product, MultipartFile imageFile){
+    public ResponseData<Product> createProduct(Product product, MultipartFile imageFile){
+        ResponseData<Product> response = new ResponseData<Product>();
+
         Product existingProduct = productRepository.findByCode(product.getCode());
         if (existingProduct != null){
-            String message = "Product code should be unique";
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            response.setStatus(false);
+            response.setMessage("Product code should be unique");
         }
 
         String imageName = StringUtils.cleanPath(imageFile.getOriginalFilename());
@@ -40,16 +41,23 @@ public class ProductService {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<>("Failed to upload image.", HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatus(false);
+            response.setMessage("Failed to upload image.");
         }
 
-        product.setImage(imageName);
+
         productRepository.save(product);
-        String message = "Product created sucessfully!";
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        response.setStatus(true);
+        response.setMessage("Product created sucessfully!");
+        response.setData(product);
+
+        return response;
     }
 
-    public ResponseEntity<String> updateProduct(int id, Product product){
+
+
+    public ResponseData<Product> updateProduct(int id, Product product){
+        ResponseData<Product> response = new ResponseData<Product>();
         Product updateProduct = productRepository.findById(id).orElse(null);
         if (updateProduct != null){
             updateProduct.setName(product.getName());
@@ -63,30 +71,47 @@ public class ProductService {
             updateProduct.setUpdated_at(new Date());
             productRepository.save(updateProduct);
 
-            String message = "Product updated successfully!";
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            response.setStatus(true);
+            response.setMessage("Product updated successfully!");
+            response.setData(updateProduct);
+        } else {
+            response.setStatus(false);
+            response.setMessage("Product Not Found!");
         }
 
-        String message = "Product Not Found!";
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return response;
     }
 
-    public ResponseEntity<String> deleteProduct(int id){
+    public ResponseData<Product> deleteProduct(int id){
+        ResponseData<Product> response = new ResponseData<Product>();
         Product product =  productRepository.findById(id).orElse(null);
         if (product != null){
             product.setIs_active(false);
             productRepository.save(product);
 
-            String message = "Product deleted sucessfully!";
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            response.setStatus(true);
+            response.setMessage("Product deleted sucessfully!");
+        } else {
+            response.setStatus(false);
+            response.setMessage("Product Not Fond!");
         }
-
-        String message = "Product Not Fond!";
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return response;
     }
 
-    public List<Product> getAllProducts(){
-        return productRepository.findAll();
+    public ResponseData<List<Product>> getAllProducts(){
+        ResponseData<List<Product>> response = new ResponseData<List<Product>>();
+        List<Product> products = productRepository.findAll();
+
+        if(!products.isEmpty()){
+            response.setStatus(true);
+            response.setMessage("products found!");
+            response.setData(products);
+        }else{
+            response.setStatus(false);
+            response.setMessage("products Empty!");
+        }
+
+        return response;
     }
 
     public List<Product> findProductByName(String name){

@@ -1,6 +1,4 @@
-package com.example.adminservice.service;
-
-
+package com.example.productcatalog.service;
 
 public class ResponseData<T> {
 
@@ -41,3 +39,4 @@ public class ResponseData<T> {
         this.data = data;
     }
 }
+

@@ -1,23 +1,21 @@
-package com.example.adminservice.service;
+package com.example.supplymanagement.service;
 
-
-
-public class ResponseData<T> {
+public class ResponseData<Supplier> {
 
     private boolean status;
     private String message;
-    private T data;
+    private Supplier data;
 
     public ResponseData() {
     }
 
-    public ResponseData(boolean status, String message, T data) {
+    public ResponseData(boolean status, String message, Supplier data) {
         this.status = status;
         this.message = message;
         this.data = data;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
@@ -33,11 +31,11 @@ public class ResponseData<T> {
         this.message = message;
     }
 
-    public T getData() {
+    public Supplier getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Supplier data) {
         this.data = data;
     }
 }
