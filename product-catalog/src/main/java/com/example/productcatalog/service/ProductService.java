@@ -9,14 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -28,6 +27,7 @@ public class ProductService {
 
     public ResponseData<Product> createProduct(Product product, MultipartFile imageFile){
         ResponseData<Product> response = new ResponseData<Product>();
+
         Product existingProduct = productRepository.findByCode(product.getCode());
         if (existingProduct != null){
             response.setStatus(false);
@@ -45,7 +45,7 @@ public class ProductService {
             response.setMessage("Failed to upload image.");
         }
 
-        product.setImage(imageName);
+
         productRepository.save(product);
         response.setStatus(true);
         response.setMessage("Product created sucessfully!");
@@ -53,6 +53,8 @@ public class ProductService {
 
         return response;
     }
+
+
 
     public ResponseData<Product> updateProduct(int id, Product product){
         ResponseData<Product> response = new ResponseData<Product>();
@@ -96,8 +98,20 @@ public class ProductService {
         return response;
     }
 
-    public List<Product> getAllProducts(){
-        return productRepository.findAll();
+    public ResponseData<List<Product>> getAllProducts(){
+        ResponseData<List<Product>> response = new ResponseData<List<Product>>();
+        List<Product> products = productRepository.findAll();
+
+        if(!products.isEmpty()){
+            response.setStatus(true);
+            response.setMessage("products found!");
+            response.setData(products);
+        }else{
+            response.setStatus(false);
+            response.setMessage("products Empty!");
+        }
+
+        return response;
     }
 
     public List<Product> findProductByName(String name){

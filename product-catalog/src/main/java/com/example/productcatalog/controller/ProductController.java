@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class ProductController {
 
     @Autowired
@@ -22,13 +23,14 @@ public class ProductController {
         return productService.createProduct(product, imageFile);
     }
 
+
     @PutMapping(path = "api/v1/products/{product_id}")
     public ResponseData<Product> updateProduct(@PathVariable Integer product_id, @RequestBody Product product){
         return productService.updateProduct(product_id, product);
     }
 
     @GetMapping(path = "/api/v1/products")
-    public List<Product> getAllProduct(){
+    public ResponseData<List<Product>> getAllProduct(){
         return productService.getAllProducts();
     }
 

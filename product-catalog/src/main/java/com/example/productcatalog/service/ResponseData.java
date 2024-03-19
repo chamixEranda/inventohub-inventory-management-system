@@ -1,21 +1,21 @@
 package com.example.productcatalog.service;
 
-public class ResponseData<Product> {
+public class ResponseData<T> {
 
     private boolean status;
     private String message;
-    private Product data;
+    private T data;
 
     public ResponseData() {
     }
 
-    public ResponseData(boolean status, String message, Product data) {
+    public ResponseData(boolean status, String message, T data) {
         this.status = status;
         this.message = message;
         this.data = data;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -31,11 +31,12 @@ public class ResponseData<Product> {
         this.message = message;
     }
 
-    public Product getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Product data) {
+    public void setData(T data) {
         this.data = data;
     }
 }
+

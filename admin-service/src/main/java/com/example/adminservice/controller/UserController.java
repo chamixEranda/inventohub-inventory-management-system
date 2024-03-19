@@ -21,8 +21,13 @@ public class UserController {
     private LoginRequest loginRequest;
 
     @GetMapping(path = "/api/v1/users")
-    public List<User> getUserDetails(){
-        return userService.getUserDetails();
+    public List<User> getAllUserDetails(){
+        return userService.getAllUserDetails();
+    }
+
+    @GetMapping(path = "/api/v1/users/{id}")
+    public ResponseData<User> getUserDetails(@PathVariable Integer id){
+        return userService.getUserDetails(id);
     }
 
     @PostMapping(path = "/api/v1/users/login")

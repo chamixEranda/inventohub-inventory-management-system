@@ -1,6 +1,4 @@
-package com.example.adminservice.service;
-
-
+package com.example.salesmanagement.service;
 
 public class ResponseData<T> {
 
@@ -17,7 +15,7 @@ public class ResponseData<T> {
         this.data = data;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
