@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
 
     @Autowired
@@ -39,8 +39,9 @@ public class ProductController {
         return productService.findProductByName(name);
     }
 
-    @RequestMapping(name = "/api/v1/products", method = RequestMethod.POST)
-    public Optional<Product> findProductById(@RequestBody int id){
+    @GetMapping("/api/v1/products/{id}") // Corrected
+    public ResponseData<Product> findProductById(@PathVariable int id){
+        System.out.println("Calling this method"); // Updated log message
         return productService.findProductById(id);
     }
 
