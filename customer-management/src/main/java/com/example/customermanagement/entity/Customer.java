@@ -1,11 +1,11 @@
-package com.example.salesmanagement.entity;
+package com.example.customermanagement.entity;
 
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
 
     @Id
