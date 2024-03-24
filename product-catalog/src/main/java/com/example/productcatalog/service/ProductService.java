@@ -17,6 +17,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
+import static java.util.Base64.*;
+
 @Service
 public class ProductService {
 
@@ -34,15 +36,12 @@ public class ProductService {
             response.setMessage("Product code should be unique");
         }
 
-        String imageName = StringUtils.cleanPath(imageFile.getOriginalFilename());
         try {
-            Path imagePath = Paths.get(UPLOAD_DIR + imageName);
-            Files.copy(imageFile.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
-
+            String imgBase64 = convertMultipartFileToBase64(imageFile);
+            product.setImage(imgBase64);
         } catch (IOException e) {
-            e.printStackTrace();
-            response.setStatus(false);
-            response.setMessage("Failed to upload image.");
+
+            throw new RuntimeException(e);
         }
 
 
@@ -53,7 +52,10 @@ public class ProductService {
 
         return response;
     }
-
+    public static String convertMultipartFileToBase64(MultipartFile file) throws IOException {
+        byte[] fileContent = file.getBytes();
+        return Base64.getEncoder().encodeToString(fileContent);
+    }
 
     public ResponseData<Product> updateProduct(int id, Product product) {
         ResponseData<Product> response = new ResponseData<Product>();
