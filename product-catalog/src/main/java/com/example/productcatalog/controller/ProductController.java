@@ -22,27 +22,9 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping(path = "/api/v1/products")
-    public ResponseData<Product> createProduct(@RequestParam("name") String name,
-                                               @RequestParam("code") String code,
-                                               @RequestParam("category_id") Integer categoryId,
-                                               @RequestParam("price") BigDecimal price,
-                                               @RequestParam("cost") BigDecimal cost,
-                                               @RequestParam("qty") Integer qty,
-                                               @RequestParam("alert_quantity") Integer alertQuantity,
-                                               @RequestParam("image") MultipartFile image,
-                                               @RequestParam("description") String description) {
+    public ResponseData<Product> createProduct(@RequestBody Product product) {
 
-        Product product = new Product();
-        product.setName(name);
-        product.setCode(code);
-        product.setCategory_id(categoryId);
-        product.setPrice(price);
-        product.setCost(cost);
-        product.setQty(qty);
-        product.setAlert_quantity(alertQuantity);
-        product.setDescription(description);
-
-        return productService.createProduct(product, image);
+        return productService.createProduct(product);
     }
 
 

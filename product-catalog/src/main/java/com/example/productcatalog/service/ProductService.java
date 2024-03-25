@@ -27,7 +27,7 @@ public class ProductService {
 
     private static final String UPLOAD_DIR = "uploads/";
 
-    public ResponseData<Product> createProduct(Product product, MultipartFile imageFile) {
+    public ResponseData<Product> createProduct(Product product) {
         ResponseData<Product> response = new ResponseData<Product>();
 
         Product existingProduct = productRepository.findByCode(product.getCode());
@@ -35,16 +35,6 @@ public class ProductService {
             response.setStatus(false);
             response.setMessage("Product code should be unique");
         }
-
-        try {
-            String imgBase64 = convertMultipartFileToBase64(imageFile);
-            product.setImage(imgBase64);
-        } catch (IOException e) {
-
-            throw new RuntimeException(e);
-        }
-
-
         productRepository.save(product);
         response.setStatus(true);
         response.setMessage("Product created sucessfully!");
