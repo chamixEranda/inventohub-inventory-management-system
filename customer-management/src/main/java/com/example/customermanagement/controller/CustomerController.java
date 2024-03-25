@@ -1,8 +1,8 @@
-package com.example.salesmanagement.controller;
+package com.example.customermanagement.controller;
 
-import com.example.salesmanagement.entity.Customer;
-import com.example.salesmanagement.service.CustomerService;
-import com.example.salesmanagement.service.ResponseData;
+import com.example.customermanagement.entity.Customer;
+import com.example.customermanagement.service.CustomerService;
+import com.example.customermanagement.service.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
