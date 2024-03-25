@@ -17,6 +17,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
 
+import static java.util.Base64.*;
+
 @Service
 public class ProductService {
 
@@ -25,27 +27,14 @@ public class ProductService {
 
     private static final String UPLOAD_DIR = "uploads/";
 
-    public ResponseData<Product> createProduct(Product product, MultipartFile imageFile){
+    public ResponseData<Product> createProduct(Product product) {
         ResponseData<Product> response = new ResponseData<Product>();
 
         Product existingProduct = productRepository.findByCode(product.getCode());
-        if (existingProduct != null){
+        if (existingProduct != null) {
             response.setStatus(false);
             response.setMessage("Product code should be unique");
         }
-
-        String imageName = StringUtils.cleanPath(imageFile.getOriginalFilename());
-        try{
-            Path imagePath = Paths.get(UPLOAD_DIR + imageName);
-            Files.copy(imageFile.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            response.setStatus(false);
-            response.setMessage("Failed to upload image.");
-        }
-
-
         productRepository.save(product);
         response.setStatus(true);
         response.setMessage("Product created sucessfully!");
@@ -53,13 +42,15 @@ public class ProductService {
 
         return response;
     }
+    public static String convertMultipartFileToBase64(MultipartFile file) throws IOException {
+        byte[] fileContent = file.getBytes();
+        return Base64.getEncoder().encodeToString(fileContent);
+    }
 
-
-
-    public ResponseData<Product> updateProduct(int id, Product product){
+    public ResponseData<Product> updateProduct(int id, Product product) {
         ResponseData<Product> response = new ResponseData<Product>();
         Product updateProduct = productRepository.findById(id).orElse(null);
-        if (updateProduct != null){
+        if (updateProduct != null) {
             updateProduct.setName(product.getName());
             updateProduct.setCode(product.getCode());
             updateProduct.setCategory_id(product.getCategory_id());
@@ -82,10 +73,10 @@ public class ProductService {
         return response;
     }
 
-    public ResponseData<Product> deleteProduct(int id){
+    public ResponseData<Product> deleteProduct(int id) {
         ResponseData<Product> response = new ResponseData<Product>();
-        Product product =  productRepository.findById(id).orElse(null);
-        if (product != null){
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
             product.setIs_active(false);
             productRepository.save(product);
 
@@ -98,15 +89,15 @@ public class ProductService {
         return response;
     }
 
-    public ResponseData<List<Product>> getAllProducts(){
+    public ResponseData<List<Product>> getAllProducts() {
         ResponseData<List<Product>> response = new ResponseData<List<Product>>();
         List<Product> products = productRepository.findAll();
 
-        if(!products.isEmpty()){
+        if (!products.isEmpty()) {
             response.setStatus(true);
             response.setMessage("products found!");
             response.setData(products);
-        }else{
+        } else {
             response.setStatus(false);
             response.setMessage("products Empty!");
         }
@@ -114,11 +105,22 @@ public class ProductService {
         return response;
     }
 
-    public List<Product> findProductByName(String name){
+    public List<Product> findProductByName(String name) {
         return productRepository.findProductByName(name);
     }
 
-    public Optional<Product> findProductById(int id){
-        return productRepository.findById(id);
+    public ResponseData<Product> findProductById(int id) {
+        ResponseData<Product> response = new ResponseData<Product>();
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isPresent()) {
+            response.setMessage("Product Found!");
+            response.setStatus(true);
+            response.setData(product.get());
+
+        } else {
+            response.setMessage("Product Not found!");
+            response.setStatus(false);
+        }
+        return response;
     }
 }

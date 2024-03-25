@@ -2,20 +2,21 @@ package com.example.productcatalog.controller;
 
 import com.example.productcatalog.entity.Category;
 import com.example.productcatalog.service.CategoryService;
+import com.example.productcatalog.service.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     @PostMapping(path = "/api/v1/categories")
-    public Category createCategory(@RequestBody Category category){
+    public ResponseData<Category> createCategory(@RequestBody Category category){
         return categoryService.createCategory(category);
     }
 
@@ -30,7 +31,7 @@ public class CategoryController {
     }
 
     @GetMapping(path = "/api/v1/categories")
-    public List<Category> getAllCategories(){
+    public ResponseData<List<Category>> getAllCategories(){
         return categoryService.getAllCategories();
     }
 }
