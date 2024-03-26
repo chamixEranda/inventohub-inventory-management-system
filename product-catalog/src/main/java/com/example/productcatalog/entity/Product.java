@@ -70,6 +70,7 @@ public class Product {
         this.updated_at = updated_at;
     }
 
+
     public Integer getId() {
         return id;
     }
@@ -135,6 +136,7 @@ public class Product {
     }
 
     public String getImage() {
+
         return image;
     }
 

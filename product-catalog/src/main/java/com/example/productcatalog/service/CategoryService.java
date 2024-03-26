@@ -16,8 +16,18 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public Category createCategory(Category category){
-        return categoryRepository.save(category);
+    public ResponseData<Category> createCategory(Category category){
+        ResponseData<Category> response = new ResponseData<Category>();
+        Category cat = categoryRepository.save(category);
+        if(cat != null){
+            response.setData(cat);
+            response.setMessage("Category Created");
+            response.setStatus(true);
+        }else{
+            response.setStatus(false);
+            response.setMessage("Category not Created");
+        }
+        return response;
     }
 
     public String updateCategory(Integer categoryId, Category category){
@@ -44,7 +54,18 @@ public class CategoryService {
         return "Category deleted successfully!";
     }
 
-    public List<Category> getAllCategories(){
-        return categoryRepository.findAll();
+    public ResponseData<List<Category>> getAllCategories(){
+        ResponseData<List<Category>> response = new ResponseData<List<Category>>();
+        List<Category> categories = categoryRepository.findAll();
+
+        if(!categories.isEmpty()){
+            response.setData(categories);
+            response.setStatus(true);
+            response.setMessage("have Categories");
+        }else{
+            response.setStatus(false);
+            response.setMessage("No Category found!");
+        }
+        return response;
     }
 }
