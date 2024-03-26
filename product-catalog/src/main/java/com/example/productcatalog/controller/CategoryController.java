@@ -25,9 +25,10 @@ public class CategoryController {
         return categoryService.updateCategory(categoryId, category);
     }
 
-    @DeleteMapping(path = "/api/v1/categories/{categoryId}")
-    public String destroyCategory(@PathVariable Integer categoryId){
-        return categoryService.destroyCategory(categoryId);
+    @DeleteMapping(path = "/api/v1/categories/{id}")
+    public ResponseData<String> destroyCategory(@PathVariable Integer id){
+        System.out.println("Done Deteled");
+        return categoryService.destroyCategory(id);
     }
 
     @GetMapping(path = "/api/v1/categories")
