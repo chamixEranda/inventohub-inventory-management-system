@@ -1,7 +1,6 @@
 package com.example.salesmanagement.entity;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -21,13 +20,13 @@ public class Sale {
     private int customer_id;
 
     @Column(name = "total_amount")
-    private DecimalFormat total_amount;
+    private Double total_amount;
 
     @Column(name = "order_discount")
-    private DecimalFormat order_discount;
+    private Double order_discount;
 
     @Column(name = "grand_total")
-    private DecimalFormat grand_total;
+    private Double grand_total;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -40,7 +39,7 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(int id, String reference_no, int customer_id, DecimalFormat total_amount, DecimalFormat order_discount, DecimalFormat grand_total, Date created_at, Date updated_at) {
+    public Sale(int id, String reference_no, int customer_id, Double total_amount, Double order_discount, Double grand_total, Date created_at, Date updated_at) {
         this.id = id;
         this.reference_no = reference_no;
         this.customer_id = customer_id;
@@ -75,27 +74,27 @@ public class Sale {
         this.customer_id = customer_id;
     }
 
-    public DecimalFormat getTotal_amount() {
+    public Double getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(DecimalFormat total_amount) {
+    public void setTotal_amount(Double total_amount) {
         this.total_amount = total_amount;
     }
 
-    public DecimalFormat getOrder_discount() {
+    public Double getOrder_discount() {
         return order_discount;
     }
 
-    public void setOrder_discount(DecimalFormat order_discount) {
+    public void setOrder_discount(Double order_discount) {
         this.order_discount = order_discount;
     }
 
-    public DecimalFormat getGrand_total() {
+    public Double getGrand_total() {
         return grand_total;
     }
 
-    public void setGrand_total(DecimalFormat grand_total) {
+    public void setGrand_total(Double grand_total) {
         this.grand_total = grand_total;
     }
 
