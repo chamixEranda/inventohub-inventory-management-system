@@ -35,6 +35,21 @@ public class CustomerService {
         return responseData;
     }
 
+    public ResponseData<Customer> getCustomerById(int id){
+        ResponseData<Customer> responseData = new ResponseData<Customer>();
+
+       Optional<Customer>  customer = customerRepository.findById(id);
+       if(customer.isPresent()){
+           responseData.setStatus(true);
+           responseData.setMessage("Customer Found!");
+           responseData.setData(customer.get());
+       }else{
+           responseData.setStatus(false);
+           responseData.setMessage("Customer Not Found!");
+       }
+       return responseData;
+    }
+
     public ResponseData<Customer> updateCustomer(int id,Customer customer){
         ResponseData<Customer> responseData = new ResponseData<Customer>();
 
@@ -66,6 +81,9 @@ public class CustomerService {
             customerRepository.deleteById(id);
             responseData.setStatus(true);
             responseData.setMessage("Customer deleted successfully!");
+        }else{
+            responseData.setMessage("Customer Not Found!");
+            responseData.setStatus(false);
         }
 
         return responseData;

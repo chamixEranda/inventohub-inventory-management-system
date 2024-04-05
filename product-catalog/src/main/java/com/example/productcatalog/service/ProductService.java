@@ -30,17 +30,23 @@ public class ProductService {
     public ResponseData<Product> createProduct(Product product) {
         ResponseData<Product> response = new ResponseData<Product>();
 
-        Product existingProduct = productRepository.findByCode(product.getCode());
-        if (existingProduct != null) {
-            response.setStatus(false);
-            response.setMessage("Product code should be unique");
-        }
-        productRepository.save(product);
-        response.setStatus(true);
-        response.setMessage("Product created sucessfully!");
-        response.setData(product);
+       try {
+           Product existingProduct = productRepository.findByCode(product.getCode());
+           if (existingProduct != null) {
+               response.setStatus(false);
+               response.setMessage("Product code should be unique");
+           }
+           productRepository.save(product);
+           response.setStatus(true);
+           response.setMessage("Product created sucessfully!");
+           response.setData(product);
 
-        return response;
+           return response;
+       }catch (Exception e){
+           response.setStatus(false);
+           response.setMessage(e.getMessage());
+           return response;
+       }
     }
     public static String convertMultipartFileToBase64(MultipartFile file) throws IOException {
         byte[] fileContent = file.getBytes();
@@ -75,17 +81,9 @@ public class ProductService {
 
     public ResponseData<Product> deleteProduct(int id) {
         ResponseData<Product> response = new ResponseData<Product>();
-        Product product = productRepository.findById(id).orElse(null);
-        if (product != null) {
-            product.setIs_active(false);
-            productRepository.save(product);
-
-            response.setStatus(true);
-            response.setMessage("Product deleted sucessfully!");
-        } else {
-            response.setStatus(false);
-            response.setMessage("Product Not Fond!");
-        }
+         productRepository.deleteById(id);
+        response.setStatus(true);
+        response.setMessage("Product deleted");
         return response;
     }
 
