@@ -5,9 +5,7 @@ import com.example.salesmanagement.service.ResponseData;
 import com.example.salesmanagement.service.SaleRequest;
 import com.example.salesmanagement.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SaleController {
@@ -18,5 +16,10 @@ public class SaleController {
     @PostMapping(path = "/api/v1/sales")
     public ResponseData<Sale> createSale(@RequestBody SaleRequest sale){
         return saleService.createSale(sale);
+    }
+
+    @DeleteMapping(path = "api/v1/sales/{id}")
+    public ResponseData<Sale> deleteSale(@PathVariable int id){
+        return saleService.deleteSale(id);
     }
 }
