@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SaleService {
@@ -47,6 +49,22 @@ public class SaleService {
         responseData.setMessage("Sale Created successfully!");
         responseData.setStatus(true);
         responseData.setData(newSale);
+
+        return responseData;
+    }
+
+    public ResponseData<Sale> deleteSale(int id){
+        ResponseData<Sale> responseData = new ResponseData<Sale>();
+        Optional<Sale> sale = saleRepository.findById(id);
+        if (!sale.isEmpty()){
+            List<SaleProduct> saleProducts = saleProductRepository.getSaleListBySaleId(id);
+            for (SaleProduct saleProduct : saleProducts) {
+                saleProductRepository.delete(saleProduct);
+            }
+            saleRepository.deleteById(id);
+            responseData.setStatus(true);
+            responseData.setMessage("Sale deleted successfully!");
+        }
 
         return responseData;
     }
