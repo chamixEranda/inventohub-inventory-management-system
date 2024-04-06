@@ -113,4 +113,22 @@ public class ProductService {
         }
         return response;
     }
+
+    public ResponseData<String> updateProductStock(int[] productIds, int[] quantities){
+        ResponseData<String> responseData = new ResponseData<String>();
+        for (int i = 0; i < productIds.length; i++) {
+            Product product = productRepository.findById(productIds[i]).orElse(null);
+            if (product != null){
+                product.setQty(product.getQty() - quantities[i]);
+                productRepository.save(product);
+
+                responseData.setMessage("Product Stock Updated!");
+                responseData.setStatus(true);
+            } else {
+                responseData.setMessage("Product Not Found!");
+                responseData.setStatus(false);
+            }
+        }
+        return responseData;
+    }
 }

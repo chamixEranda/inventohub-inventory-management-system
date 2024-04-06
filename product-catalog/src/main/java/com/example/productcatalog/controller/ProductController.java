@@ -1,5 +1,6 @@
 package com.example.productcatalog.controller;
 
+import com.example.productcatalog.dto.StockUpdateRequest;
 import com.example.productcatalog.entity.Product;
 import com.example.productcatalog.service.ProductService;
 import com.example.productcatalog.dto.ResponseData;
@@ -47,5 +48,10 @@ public class ProductController {
     @DeleteMapping(path = "/api/v1/products/{id}")
     public ResponseData<Product> deleteProduct(@PathVariable int id) {
         return productService.deleteProduct(id);
+    }
+
+    @PostMapping(path = "/api/v1/products/update-stock")
+    public ResponseData<String> updateProductStock(@RequestBody StockUpdateRequest stockUpdateRequest){
+        return productService.updateProductStock(stockUpdateRequest.getProduct_id(), stockUpdateRequest.getQuantities());
     }
 }
