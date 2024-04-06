@@ -1,8 +1,8 @@
 package com.example.adminservice.controller;
 
 import com.example.adminservice.entity.User;
-import com.example.adminservice.request_models.LoginRequest;
-import com.example.adminservice.response_models.ResponseData;
+import com.example.adminservice.dto.LoginRequest;
+import com.example.adminservice.dto.ResponseData;
 import com.example.adminservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

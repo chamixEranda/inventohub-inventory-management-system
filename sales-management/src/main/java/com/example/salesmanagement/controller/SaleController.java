@@ -1,8 +1,8 @@
 package com.example.salesmanagement.controller;
 
 import com.example.salesmanagement.entity.Sale;
-import com.example.salesmanagement.response_models.ResponseData;
-import com.example.salesmanagement.request_models.SaleRequest;
+import com.example.salesmanagement.dto.ResponseData;
+import com.example.salesmanagement.dto.SaleRequest;
 import com.example.salesmanagement.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

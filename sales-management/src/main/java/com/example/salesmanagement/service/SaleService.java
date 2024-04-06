@@ -4,8 +4,8 @@ import com.example.salesmanagement.entity.Sale;
 import com.example.salesmanagement.entity.SaleProduct;
 import com.example.salesmanagement.repository.SaleProductRepository;
 import com.example.salesmanagement.repository.SaleRepository;
-import com.example.salesmanagement.request_models.SaleRequest;
-import com.example.salesmanagement.response_models.ResponseData;
+import com.example.salesmanagement.dto.SaleRequest;
+import com.example.salesmanagement.dto.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

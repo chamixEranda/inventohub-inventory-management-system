@@ -2,7 +2,7 @@ package com.example.customermanagement.controller;
 
 import com.example.customermanagement.entity.Customer;
 import com.example.customermanagement.service.CustomerService;
-import com.example.customermanagement.response_models.ResponseData;
+import com.example.customermanagement.dto.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

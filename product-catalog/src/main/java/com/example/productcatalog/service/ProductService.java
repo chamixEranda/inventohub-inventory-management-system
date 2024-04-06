@@ -2,7 +2,7 @@ package com.example.productcatalog.service;
 
 import com.example.productcatalog.entity.Product;
 import com.example.productcatalog.repository.ProductRepository;
-import com.example.productcatalog.response_models.ResponseData;
+import com.example.productcatalog.dto.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

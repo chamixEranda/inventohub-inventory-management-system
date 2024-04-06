@@ -1,4 +1,4 @@
-package com.example.adminservice.request_models;
+package com.example.adminservice.dto;
 
 public class LoginRequest {
 

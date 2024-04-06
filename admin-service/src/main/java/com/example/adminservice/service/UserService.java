@@ -2,7 +2,7 @@ package com.example.adminservice.service;
 
 import com.example.adminservice.entity.User;
 import com.example.adminservice.repository.UserRepository;
-import com.example.adminservice.response_models.ResponseData;
+import com.example.adminservice.dto.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

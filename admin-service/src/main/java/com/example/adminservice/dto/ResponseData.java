@@ -1,4 +1,4 @@
-package com.example.adminservice.response_models;
+package com.example.adminservice.dto;
 
 
 

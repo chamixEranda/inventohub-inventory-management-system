@@ -1,6 +1,4 @@
-package com.example.salesmanagement.request_models;
-
-import java.text.DecimalFormat;
+package com.example.salesmanagement.dto;
 
 public class SaleRequest {
     private int customer_id;

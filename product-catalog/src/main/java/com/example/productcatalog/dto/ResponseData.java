@@ -1,4 +1,4 @@
-package com.example.salesmanagement.response_models;
+package com.example.productcatalog.dto;
 
 public class ResponseData<T> {
 
@@ -15,7 +15,7 @@ public class ResponseData<T> {
         this.data = data;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -39,3 +39,4 @@ public class ResponseData<T> {
         this.data = data;
     }
 }
+

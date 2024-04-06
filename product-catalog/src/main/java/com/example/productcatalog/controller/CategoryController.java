@@ -2,7 +2,7 @@ package com.example.productcatalog.controller;
 
 import com.example.productcatalog.entity.Category;
 import com.example.productcatalog.service.CategoryService;
-import com.example.productcatalog.response_models.ResponseData;
+import com.example.productcatalog.dto.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
