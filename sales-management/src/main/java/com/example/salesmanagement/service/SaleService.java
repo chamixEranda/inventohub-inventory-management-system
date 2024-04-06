@@ -32,6 +32,7 @@ public class SaleService {
         newSale.setTotal_amount(saleRequest.getTotal_amount());
         newSale.setOrder_discount(saleRequest.getOrder_discount());
         newSale.setGrand_total(saleRequest.getGrand_total());
+        newSale.setPaid_amount(saleRequest.getPaid_amount());
         newSale.setCreated_at(new Date());
         newSale.setUpdated_at(new Date());
 
