@@ -7,6 +7,8 @@ import com.example.salesmanagement.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class SaleController {
 
@@ -18,7 +20,12 @@ public class SaleController {
         return saleService.createSale(sale);
     }
 
-    @DeleteMapping(path = "api/v1/sales/{id}")
+    @GetMapping(path = "/api/v1/sales")
+    public ResponseData<List<Sale>> getAllSales(){
+        return saleService.getAllSales();
+    }
+
+    @DeleteMapping(path = "/api/v1/sales/{id}")
     public ResponseData<Sale> deleteSale(@PathVariable int id){
         return saleService.deleteSale(id);
     }

@@ -28,6 +28,9 @@ public class Sale {
     @Column(name = "grand_total")
     private Double grand_total;
 
+    @Column(name = "paid_amount")
+    private Double paid_amount;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date created_at;
@@ -39,13 +42,14 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(int id, String reference_no, int customer_id, Double total_amount, Double order_discount, Double grand_total, Date created_at, Date updated_at) {
+    public Sale(int id, String reference_no, int customer_id, Double total_amount, Double order_discount, Double grand_total, Double paid_amount, Date created_at, Date updated_at) {
         this.id = id;
         this.reference_no = reference_no;
         this.customer_id = customer_id;
         this.total_amount = total_amount;
         this.order_discount = order_discount;
         this.grand_total = grand_total;
+        this.paid_amount = paid_amount;
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
@@ -96,6 +100,14 @@ public class Sale {
 
     public void setGrand_total(Double grand_total) {
         this.grand_total = grand_total;
+    }
+
+    public Double getPaid_amount() {
+        return paid_amount;
+    }
+
+    public void setPaid_amount(Double paid_amount) {
+        this.paid_amount = paid_amount;
     }
 
     public Date getCreated_at() {

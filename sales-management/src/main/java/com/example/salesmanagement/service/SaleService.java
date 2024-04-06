@@ -53,6 +53,21 @@ public class SaleService {
         return responseData;
     }
 
+    public ResponseData<List<Sale>> getAllSales(){
+        ResponseData<List<Sale>> responseData = new ResponseData<List<Sale>>();
+        List<Sale> saleList = saleRepository.findAll();
+        if (!saleList.isEmpty()){
+            responseData.setStatus(true);
+            responseData.setMessage("Sale List found!");
+            responseData.setData(saleList);
+        } else {
+            responseData.setStatus(false);
+            responseData.setMessage("Sales Empty!");
+        }
+
+        return responseData;
+    }
+
     public ResponseData<Sale> deleteSale(int id){
         ResponseData<Sale> responseData = new ResponseData<Sale>();
         Optional<Sale> sale = saleRepository.findById(id);
