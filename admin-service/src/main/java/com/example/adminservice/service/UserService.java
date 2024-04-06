@@ -18,11 +18,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUserDetails(){
+    public List<User> getAllUserDetails() {
         return userRepository.findAll();
     }
 
-    private boolean isValidEmail(String email){
+    private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return StringUtils.hasText(email) && email.matches(emailRegex);
     }
@@ -38,15 +38,15 @@ public class UserService {
         return StringUtils.hasText(password) && password.length() >= 6;
     }
 
-    public ResponseData<User> authentication(String email, String password){
+    public ResponseData<User> authentication(String email, String password) {
         ResponseData<User> resposne = new ResponseData<User>();
 
-        User user = userRepository.findByEmailAndPassword(email,password);
-        if (user != null){
+        User user = userRepository.findByEmailAndPassword(email, password);
+        if (user != null) {
             resposne.setData(user);
             resposne.setStatus(true);
-            resposne.setMessage( "You are logged in!");
-        }else {
+            resposne.setMessage("You are logged in!");
+        } else {
             resposne.setStatus(false);
             resposne.setMessage("Sorry!, Unauthorized Access!");
         }
@@ -54,43 +54,48 @@ public class UserService {
     }
 
 
-    public ResponseData<User> getUserDetails(int id){
+    public ResponseData<User> getUserDetails(int id) {
         ResponseData<User> resposne = new ResponseData<User>();
 
-         Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
 
-        if (user.isPresent()){
+        if (user.isPresent()) {
             resposne.setData(user.get());
             resposne.setStatus(true);
-            resposne.setMessage( "User found");
-        }else {
+            resposne.setMessage("User found");
+        } else {
             resposne.setStatus(false);
             resposne.setMessage("Not user found!");
         }
-        return  resposne;
+        return resposne;
     }
 
-    public ResponseEntity<String> updateProfile(Integer userId, User user){
+    public ResponseData<User> updateProfile(Integer userId, User user) {
 
-
+        ResponseData responseData = new ResponseData<User>();
         User existingUser = userRepository.findById(userId).orElse(null);
-        if (existingUser == null){
-            String message = "User not found!";
-            return new ResponseEntity<>(message,HttpStatus.NOT_FOUND);
+        if (existingUser == null) {
+            responseData.setStatus(false);
+            responseData.setMessage("User not found!");
+            return responseData;
         }
         if (!isValidEmail(user.getEmail())) {
-            String message = "Invalid email address!";
-            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+            responseData.setStatus(false);
+            responseData.setMessage("Invalid email address!");
+            return responseData;
         }
 
         if (!isValidPhoneNumber(user.getPhone_number())) {
-            String message = "Invalid phone number! It should have 10 digits.";
-            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+            responseData.setStatus(false);
+            responseData.setMessage("Invalid phone number! It should have 10 digits.");
+            return responseData;
         }
 
         if (!isValidPassword(user.getPassword())) {
-            String message = "Password should have minimum 6 characters!";
-            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+
+            responseData.setStatus(false);
+            responseData.setMessage("Password should have minimum 6 characters!");
+            return responseData;
         }
         existingUser.setF_name(user.getF_name());
         existingUser.setL_name(user.getL_name());
@@ -99,11 +104,12 @@ public class UserService {
         existingUser.setPassword(user.getPassword());
         existingUser.setPhone_number(user.getPhone_number());
 
-        userRepository.save(existingUser);
-        String message = "Profile Updated Successfully!";
-        return new ResponseEntity<>(message,HttpStatus.OK);
+        User updateUser = userRepository.save(existingUser);
+        responseData.setStatus(true);
+        responseData.setData(updateUser);
+        responseData.setMessage("Profile Updated Successfully!");
+        return responseData;
     }
-
 
 
 }

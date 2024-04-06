@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class CustomerController {
 
     @Autowired
@@ -17,6 +18,11 @@ public class CustomerController {
     @PostMapping(path = "/api/v1/customers")
     public ResponseData<Customer> createCustomer(@RequestBody Customer customer){
         return customerService.createCustomer(customer);
+    }
+
+    @GetMapping(path = "/api/v1/customers/{id}")
+    public ResponseData<Customer> getCustomerById(@PathVariable int id){
+        return customerService.getCustomerById(id);
     }
 
     @PutMapping(path = "/api/v1/customers/{id}")
