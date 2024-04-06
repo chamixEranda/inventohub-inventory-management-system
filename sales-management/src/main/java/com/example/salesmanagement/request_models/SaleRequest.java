@@ -7,6 +7,7 @@ public class SaleRequest {
     private Double total_amount;
     private Double order_discount;
     private Double grand_total;
+    private Double paid_amount;
     private int[] product_id;
     private int[] qty;
     private Double[] unit_prices;
@@ -15,11 +16,12 @@ public class SaleRequest {
     public SaleRequest() {
     }
 
-    public SaleRequest(int customer_id, Double total_amount, Double order_discount, Double grand_total, int[] product_id, int[] qty, Double[] unit_prices, Double[] total) {
+    public SaleRequest(int customer_id, Double total_amount, Double order_discount, Double grand_total, Double paid_amount, int[] product_id, int[] qty, Double[] unit_prices, Double[] total) {
         this.customer_id = customer_id;
         this.total_amount = total_amount;
         this.order_discount = order_discount;
         this.grand_total = grand_total;
+        this.paid_amount = paid_amount;
         this.product_id = product_id;
         this.qty = qty;
         this.unit_prices = unit_prices;
@@ -56,6 +58,14 @@ public class SaleRequest {
 
     public void setGrand_total(Double grand_total) {
         this.grand_total = grand_total;
+    }
+
+    public Double getPaid_amount() {
+        return paid_amount;
+    }
+
+    public void setPaid_amount(Double paid_amount) {
+        this.paid_amount = paid_amount;
     }
 
     public int[] getProduct_id() {
