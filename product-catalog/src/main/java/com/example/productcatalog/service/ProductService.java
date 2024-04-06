@@ -26,6 +26,8 @@ public class ProductService {
            if (existingProduct != null) {
                response.setStatus(false);
                response.setMessage("Product code should be unique");
+               response.setData(null);
+               return response;
            }
            productRepository.save(product);
            response.setStatus(true);
