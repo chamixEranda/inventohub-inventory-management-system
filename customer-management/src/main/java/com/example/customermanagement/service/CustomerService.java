@@ -108,11 +108,13 @@ public class CustomerService {
         ResponseData<List<Customer>> responseData = new ResponseData<List<Customer>>();
         List<Customer> customers = customerRepository.findProductByName(f_name);
         if (customers.isEmpty()){
-            responseData.setStatus(false);
-            responseData.setMessage("No customers");
+            List<Customer> customerList = customerRepository.findAll();
+            responseData.setData(customerList);
+            responseData.setStatus(true);
+            responseData.setMessage("All Customer List");
         } else {
             responseData.setStatus(true);
-            responseData.setMessage("Customer list");
+            responseData.setMessage("Customer list by name");
             responseData.setData(customers);
         }
         return responseData;
