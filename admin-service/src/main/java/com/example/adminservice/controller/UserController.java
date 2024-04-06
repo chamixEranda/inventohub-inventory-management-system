@@ -12,7 +12,7 @@ import java.io.Console;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/api/v1/users/{userId}")
-    public ResponseEntity<String> updateProfile(@PathVariable Integer userId, @RequestBody User user){
+    public ResponseData<User> updateProfile(@PathVariable Integer userId, @RequestBody User user){
         return userService.updateProfile(userId, user);
     }
 }

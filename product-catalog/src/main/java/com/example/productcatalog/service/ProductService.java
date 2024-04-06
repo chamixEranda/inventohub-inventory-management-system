@@ -61,6 +61,7 @@ public class ProductService {
             updateProduct.setCode(product.getCode());
             updateProduct.setCategory_id(product.getCategory_id());
             updateProduct.setPrice(product.getPrice());
+            updateProduct.setQty(product.getQty());
             updateProduct.setCost(product.getCost());
             updateProduct.setAlert_quantity(product.getAlert_quantity());
             updateProduct.setImage(product.getImage());
