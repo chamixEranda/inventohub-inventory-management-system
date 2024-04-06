@@ -30,4 +30,9 @@ public class SaleController {
     public ResponseData<Sale> deleteSale(@PathVariable int id){
         return saleService.deleteSale(id);
     }
+
+    @GetMapping(path = "/api/v1/sales/get-count")
+    public ResponseData<Long> getTotalSalesCount(){
+        return saleService.getTotalSalesCount();
+    }
 }

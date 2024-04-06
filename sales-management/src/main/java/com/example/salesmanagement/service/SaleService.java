@@ -86,4 +86,15 @@ public class SaleService {
 
         return responseData;
     }
+
+    public ResponseData<Long> getTotalSalesCount(){
+        ResponseData<Long> responseData = new ResponseData<Long>();
+        long totalSalesCount = saleRepository.count();
+        responseData.setData(totalSalesCount);
+        responseData.setMessage("Total sales count");
+        responseData.setStatus(true);
+
+        return responseData;
+    }
+
 }

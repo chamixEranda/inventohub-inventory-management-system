@@ -44,4 +44,9 @@ public class CustomerController {
     public ResponseData<List<Customer>> findProductByName(@RequestParam String f_name){
         return customerService.getCustomerByName(f_name);
     }
+
+    @GetMapping(path = "/api/v1/customers/get-count")
+    public ResponseData<Long> getTotalCustomerCount(){
+        return customerService.getTotalCustomerCount();
+    }
 }

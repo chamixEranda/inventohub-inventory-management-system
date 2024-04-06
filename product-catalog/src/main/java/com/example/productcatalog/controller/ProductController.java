@@ -54,4 +54,9 @@ public class ProductController {
     public ResponseData<String> updateProductStock(@RequestBody StockUpdateRequest stockUpdateRequest){
         return productService.updateProductStock(stockUpdateRequest.getProduct_id(), stockUpdateRequest.getQuantities());
     }
+
+    @GetMapping(path = "/api/v1/products/get-count")
+    public ResponseData<Long> getTotalProductCount(){
+        return productService.getTotalProductCount();
+    }
 }

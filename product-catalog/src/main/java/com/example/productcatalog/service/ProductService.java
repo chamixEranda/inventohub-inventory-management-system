@@ -133,4 +133,14 @@ public class ProductService {
         }
         return responseData;
     }
+
+    public ResponseData<Long> getTotalProductCount(){
+        ResponseData<Long> responseData = new ResponseData<Long>();
+        long totalProductCount = productRepository.count();
+        responseData.setData(totalProductCount);
+        responseData.setMessage("Total products count");
+        responseData.setStatus(true);
+
+        return responseData;
+    }
 }

@@ -120,4 +120,14 @@ public class CustomerService {
         return responseData;
     }
 
+    public ResponseData<Long> getTotalCustomerCount(){
+        ResponseData<Long> responseData = new ResponseData<Long>();
+        long totalCustomerCount = customerRepository.count();
+        responseData.setData(totalCustomerCount);
+        responseData.setMessage("Total customer count");
+        responseData.setStatus(true);
+
+        return responseData;
+    }
+
 }
