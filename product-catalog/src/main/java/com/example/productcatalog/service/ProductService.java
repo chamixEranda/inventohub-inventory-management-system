@@ -2,22 +2,13 @@ package com.example.productcatalog.service;
 
 import com.example.productcatalog.entity.Product;
 import com.example.productcatalog.repository.ProductRepository;
+import com.example.productcatalog.response_models.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
-
-import static java.util.Base64.*;
 
 @Service
 public class ProductService {

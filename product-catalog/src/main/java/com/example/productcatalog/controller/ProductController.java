@@ -2,17 +2,11 @@ package com.example.productcatalog.controller;
 
 import com.example.productcatalog.entity.Product;
 import com.example.productcatalog.service.ProductService;
-import com.example.productcatalog.service.ResponseData;
+import com.example.productcatalog.response_models.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")

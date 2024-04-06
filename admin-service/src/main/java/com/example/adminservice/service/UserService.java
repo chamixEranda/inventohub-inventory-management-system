@@ -2,10 +2,8 @@ package com.example.adminservice.service;
 
 import com.example.adminservice.entity.User;
 import com.example.adminservice.repository.UserRepository;
-import org.hibernate.internal.util.StringHelper;
+import com.example.adminservice.response_models.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

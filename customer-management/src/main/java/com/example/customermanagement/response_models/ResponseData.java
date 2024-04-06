@@ -1,4 +1,5 @@
-package com.example.salesmanagement.service;
+package com.example.customermanagement.response_models;
+
 
 public class ResponseData<T> {
 

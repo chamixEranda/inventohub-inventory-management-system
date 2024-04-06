@@ -1,5 +1,4 @@
-package com.example.customermanagement.service;
-
+package com.example.productcatalog.response_models;
 
 public class ResponseData<T> {
 
@@ -16,7 +15,7 @@ public class ResponseData<T> {
         this.data = data;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -40,3 +39,4 @@ public class ResponseData<T> {
         this.data = data;
     }
 }
+

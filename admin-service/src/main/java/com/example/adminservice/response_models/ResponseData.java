@@ -1,4 +1,4 @@
-package com.example.adminservice.service;
+package com.example.adminservice.response_models;
 
 
 

@@ -2,11 +2,10 @@ package com.example.productcatalog.service;
 
 import com.example.productcatalog.entity.Category;
 import com.example.productcatalog.repository.CategoryRepository;
+import com.example.productcatalog.response_models.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
