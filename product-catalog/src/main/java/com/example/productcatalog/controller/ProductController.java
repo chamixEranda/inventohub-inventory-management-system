@@ -30,6 +30,7 @@ public class ProductController {
 
     @PutMapping(path = "api/v1/products/{product_id}")
     public ResponseData<Product> updateProduct(@PathVariable Integer product_id, @RequestBody Product product) {
+        System.out.println(product.getQty());
         return productService.updateProduct(product_id, product);
     }
 
